@@ -1,6 +1,6 @@
 # Drip Tip
 # Main file for application
-#
+# Example for you hoes
 #
 #
 from kivymd.app import MDApp
