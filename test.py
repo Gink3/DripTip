@@ -2,13 +2,15 @@
 # 3/12/21
 # Test code for correct installation
 #
-from kivymd.app import MDApp
-from kivymd.uix.label import MDLabel
+import kivy
+kivy.require('1.0.7')
+
+from kivy.app import App
 
 
-class MainApp(MDApp):
-    def build(self):
-        return MDLabel(text="Hello, World", halign="center")
+class TestApp(App):
+    pass
 
 
-MainApp().run()
+if __name__ == '__main__':
+    TestApp().run()
