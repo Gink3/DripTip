@@ -1,0 +1,9 @@
+{
+	"folders": [
+		{
+			"name": "SSH FS - cse01",
+			"uri": "ssh://cse01/"
+		}
+	],
+	"settings": {}
+}

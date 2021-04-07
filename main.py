@@ -8,6 +8,7 @@ from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from database import DataBase
 from kivy.config import Config
+from kivy.uix.gridlayout import GridLayout
 Config.set('graphics', 'position', 'custom')
 Config.set('graphics', 'left', 0)
 Config.set('graphics', 'top', 0)
@@ -85,7 +86,13 @@ class Profile(Screen):
     current = ""
     def logOut(self):
         sm.current = "login"
+        
+class advisor(Screen):
+    pass
 
+
+class seeker(Screen):   # page where the seeker sees the advice given by the advisor 
+    pass
 
 
 class WindowManager(ScreenManager):
@@ -112,11 +119,15 @@ kv = Builder.load_file("my.kv")
 sm = WindowManager()
 db = DataBase("users.txt")
 
-screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main"),Profile(name="profile")]
+screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main"),Profile(name="profile"),seeker(name="seeker_sees"), advisor(name="advisor_sends")]
 for screen in screens:
     sm.add_widget(screen)
 
 sm.current = "login"
+
+
+
+
 
 
 class MyMainApp(App):

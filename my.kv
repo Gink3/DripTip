@@ -158,19 +158,19 @@
         Button:
             pos_hint:{'center_x': 0.5}
             size_hint:0.1,0.1
+            text: "See Advice" 
+            on_release:
+                app.root.current = "seeker_sees"
+                root.manager.transition.direction = "down"
             
-            Image:
-                source: 'images/HOME.png'
-                center_x: self.parent.center_x
-                center_y: self.parent.center_y
+
         Button:
             pos_hint:{'center_x': 0.1}
             size_hint:0.1,0.1
-
-            Image:
-                source: 'images/Drippy.jpg'
-                center_x: self.parent.center_x
-                center_y: self.parent.center_y
+            text: "Give Advice"
+            on_release:
+                app.root.current = "advisor_sends"
+                root.manager.transition.direction = "down"
 
         Button:
             pos_hint:{'center_x': 0.9}
@@ -215,4 +215,33 @@
             on_release:
                 app.root.current = "login"
                 root.manager.transition.direction = "down"
+
+<adivsor>:
+    name: "advisor_sends"
+    Label: 
+        text: "hello" 
+
+<seeker>:
+    name: "seeker_sees" 
+
+    GridLayout:
+        cols: 1
+        size: root.width, root.height
+        # image of seeker that is getting advice 
+        Image:   
+            source: "Snapchat-440905881.jpg"
+            allow_stretch: True 
+        Label: 
+            text: "Advice"
+        GridLayout:
+            cols: 2
+            Button:
+                text: "Decline"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            Button:
+                text: "Accept"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+
+
 
