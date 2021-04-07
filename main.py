@@ -7,6 +7,10 @@ from kivy.properties import ObjectProperty
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from database import DataBase
+from kivy.config import Config
+Config.set('graphics', 'position', 'custom')
+Config.set('graphics', 'left', 0)
+Config.set('graphics', 'top', 0)
 
 
 class CreateAccountWindow(Screen):
@@ -63,15 +67,25 @@ class MainWindow(Screen):
     created = ObjectProperty(None)
     email = ObjectProperty(None)
     current = ""
-
-    def logOut(self):
-        sm.current = "login"
+    def OpenProfile(self):
+        MainWindow.current = self.email.text
+        self.reset()
+        sm.current = "profile"
 
     def on_enter(self, *args):
         password, name, created = db.get_user(self.current)
-        self.n.text = "Account Name: " + name
-        self.email.text = "Email: " + self.current
-        self.created.text = "Created On: " + created
+        self.n = "Account Name: " + name
+        self.email = "Email: " + self.current
+        self.created = "Created On: " + created
+
+class Profile(Screen):
+    n = ObjectProperty(None)
+    created = ObjectProperty(None)
+    email = ObjectProperty(None)
+    current = ""
+    def logOut(self):
+        sm.current = "login"
+
 
 
 class WindowManager(ScreenManager):
@@ -98,7 +112,7 @@ kv = Builder.load_file("my.kv")
 sm = WindowManager()
 db = DataBase("users.txt")
 
-screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main")]
+screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main"),Profile(name="profile")]
 for screen in screens:
     sm.add_widget(screen)
 

@@ -1,1 +1,3 @@
 solomon@gmail.com;123;solomon;2021-04-06
+fake@email.com;password;test;2021-04-06
+test@test.com;password;test;2021-04-06
