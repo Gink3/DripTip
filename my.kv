@@ -131,6 +131,60 @@
 
 
 <MainWindow>:
+
+    FloatLayout:
+
+        Button:
+            pos_hint:{"x":0.2, "y": 0.1}
+            size_hint:0.6,0.2
+            text: "Log Out"
+            on_release:
+                app.root.current = "login"
+                root.manager.transition.direction = "down"
+
+        Button:
+            pos_hint:{'center_y': .9, }
+            size_hint:.2,0.2
+            on_release:
+                app.root.current = "profile"
+                root.manager.transition.direction = "up"
+                #root.OpenProfile()
+            Image:
+                source: 'images/BPropic.png'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+
+
+        Button:
+            pos_hint:{'center_x': 0.5}
+            size_hint:0.1,0.1
+            
+            Image:
+                source: 'images/HOME.png'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+        Button:
+            pos_hint:{'center_x': 0.1}
+            size_hint:0.1,0.1
+
+            Image:
+                source: 'images/Drippy.jpg'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+
+        Button:
+            pos_hint:{'center_x': 0.9}
+            size_hint:0.1,0.1
+
+            Image:
+                source: 'images/camera.png'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+
+
+
+<Profile>:
+    name: "profile"
     n: n
     email: email
     created:created
@@ -161,3 +215,4 @@
             on_release:
                 app.root.current = "login"
                 root.manager.transition.direction = "down"
+
