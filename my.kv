@@ -216,10 +216,28 @@
                 app.root.current = "login"
                 root.manager.transition.direction = "down"
 
-<adivsor>:
+<advisor>:
     name: "advisor_sends"
-    Label: 
-        text: "hello" 
+    tip: tip
+
+    GridLayout:
+        cols: 1
+        size: root.width, root.height
+        # image of seeker that is getting advice 
+        Image:   
+            source: "Snapchat-440905881.jpg"
+            allow_stretch: True 
+        TextInput:
+            id: tip
+        GridLayout:
+            cols: 1
+            Button:
+                text: "Send"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                on_release:
+                    app.root.current = "main"
+                    root.manager.transition.direction = "down"
+
 
 <seeker>:
     name: "seeker_sees" 

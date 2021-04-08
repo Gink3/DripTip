@@ -86,9 +86,10 @@ class Profile(Screen):
     current = ""
     def logOut(self):
         sm.current = "login"
-        
+
 class advisor(Screen):
-    pass
+    tip = ObjectProperty(None)
+    current = ""
 
 
 class seeker(Screen):   # page where the seeker sees the advice given by the advisor 
