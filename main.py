@@ -79,6 +79,9 @@ class MainWindow(Screen):
         self.email = "Email: " + self.current
         self.created = "Created On: " + created
 
+    def OpenAdvisor(self):
+        sm.current = "advisor_sends"
+
 class Profile(Screen):
     n = ObjectProperty(None)
     created = ObjectProperty(None)
