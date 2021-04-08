@@ -134,6 +134,13 @@
 
     FloatLayout:
 
+        Button:
+            pos_hint:{"x":0.2, "y": 0.1}
+            size_hint:0.6,0.2
+            text: "Log Out"
+            on_release:
+                app.root.current = "login"
+                root.manager.transition.direction = "down"
 
         Button:
             pos_hint:{'center_y': .9, }
@@ -174,7 +181,7 @@
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
 
-        
+
 
 
 <Profile>:
@@ -228,9 +235,11 @@
             Button:
                 text: "Send"
                 pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                on_press: root.send()
                 on_release:
                     app.root.current = "main"
                     root.manager.transition.direction = "down"
+
 
 <seeker>:
     name: "seeker_sees" 
