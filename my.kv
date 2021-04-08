@@ -276,11 +276,25 @@
 
 <advisor>:
     name: "advisor_sends"
-    FloatLayout:
-        Label: 
-            pos_hint:{"x": 0.1, "top":0.9}
-            size_hint:0.8, 0.2
-            text: "Account Name: "
+    tip: tip
+
+    GridLayout:
+        cols: 1
+        size: root.width, root.height
+        # image of seeker that is getting advice 
+        Image:   
+            source: "Snapchat-440905881.jpg"
+            allow_stretch: True 
+        TextInput:
+            id: tip
+        GridLayout:
+            cols: 1
+            Button:
+                text: "Send"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                on_release:
+                    app.root.current = "main"
+                    root.manager.transition.direction = "down"
 
 <seeker>:
     name: "seeker_sees" 
