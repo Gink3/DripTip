@@ -91,6 +91,8 @@ class advisor(Screen):
     tip = ObjectProperty(None)
     current = ""
 
+    def send(self):
+        messageSent() 
 
 class seeker(Screen):   # page where the seeker sees the advice given by the advisor 
     pass
@@ -112,6 +114,12 @@ def invalidForm():
                   content=Label(text='Please fill in all inputs with valid information.'),
                   size_hint=(None, None), size=(400, 400))
 
+    pop.open()
+
+def messageSent():
+    pop = Popup(title='Tip Sent!',
+                content=Label(text='Your Tip has been sent!'),
+                size_hint=(None, None), size=(400, 400))   
     pop.open()
 
 

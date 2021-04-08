@@ -234,6 +234,7 @@
             Button:
                 text: "Send"
                 pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                on_press: root.send()
                 on_release:
                     app.root.current = "main"
                     root.manager.transition.direction = "down"
