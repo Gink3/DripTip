@@ -134,13 +134,6 @@
 
     FloatLayout:
 
-        Button:
-            pos_hint:{"x":0.2, "y": 0.1}
-            size_hint:0.6,0.2
-            text: "Log Out"
-            on_release:
-                app.root.current = "login"
-                root.manager.transition.direction = "down"
 
         Button:
             pos_hint:{'center_y': .9, }
@@ -162,6 +155,73 @@
             on_release:
                 app.root.current = "seeker_sees"
                 root.manager.transition.direction = "down"
+
+        Label:
+            text:"Goth"
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {"x":0.2, "y":0.65}
+            size_hint: 0.2, 0.2
+
+        Button:
+            pos_hint:{'x': 0.2, 'y': .8}
+            size_hint:0.2,0.2
+            text: "Goth" 
+
+        Label:
+            text:"Athletic" 
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {"x":0.6, "y":0.65}
+            size_hint: 0.2, 0.2
+
+        Button:
+            pos_hint:{'x': 0.6, 'y': .8}
+            size_hint:0.2,0.2
+            text: "Athletic" 
+
+        Label:
+            text:"Profesional" 
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {"x":0.2, "y":0.35}
+            size_hint: 0.2, 0.2
+
+        Button:
+            pos_hint:{'x': 0.2, 'y': .5}
+            size_hint:0.2,0.2
+            text: "Profesional" 
+
+        Label:
+            text:"Urban" 
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {"x":0.6, "y":0.35}
+            size_hint: 0.2, 0.2
+
+        Button:
+            pos_hint:{'x': 0.6, 'y': .5}
+            size_hint:0.2,0.2
+            text: "Urban" 
+
+        Label:
+            text:"Casual" 
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {"x":0.2, "y":0.05}
+            size_hint: 0.2, 0.2
+
+        Button:
+            pos_hint:{'x': 0.2, "y": .2}
+            size_hint:0.2,0.2
+            text: "Casual" 
+
+        Label:
+            text:"Seasonal" 
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {"x":0.6, "y":0.05}
+            size_hint: 0.2, 0.2
+
+        Button:
+            pos_hint:{'x': 0.6, 'y': .2}
+            size_hint:0.2,0.2
+            text: "Seasonal" 
+
             
 
         Button:
@@ -181,7 +241,7 @@
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
 
-
+        
 
 
 <Profile>:
@@ -235,11 +295,9 @@
             Button:
                 text: "Send"
                 pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                on_press: root.send()
                 on_release:
                     app.root.current = "main"
                     root.manager.transition.direction = "down"
-
 
 <seeker>:
     name: "seeker_sees" 
