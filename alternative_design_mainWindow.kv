@@ -1,0 +1,81 @@
+#:kivy 2.0.0
+#:import md_icons kivymd.icon_definitions
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+
+<HomeBackdropBackLayer>
+    ScrollView:
+        MDGridLayout:
+            adaptive_height: True
+            cols:1
+            padding: "10dp"
+            spacing: "10dp"
+
+            MDBoxLayout:
+                orientation: "vertical"
+                adaptive_height: True
+                padding: "5dp"
+                spacing: "10dp"
+
+                OneLineIconListItem:
+                    text: "Profile"
+                    divider: None
+                    bold: True
+                    IconLeftWidget:
+                        icon: "account"
+
+    
+<HomeBackdropFrontLayer>
+    ScrollView:
+        MDBoxLayout:
+            orientation: "vertical"   
+            adaptive_height: True
+            padding: "10dp"
+            spacing: "20dp"
+
+            OneLineIconListItem:
+                text: "Goth"
+                divider: 
+
+            OneLineIconListItem:
+                text: "Athletic"
+                divider: 
+
+            OneLineIconListItem:
+                text: "Professional"
+                divider:
+    
+            OneLineIconListItem:
+                text: "Urban"
+                divider:
+            
+            OneLineIconListItem:
+                text: "Casual"
+                divider: 
+            
+            OneLineIconListItem:
+                text: "Seasonal"
+                divider: 
+ScreenManager:
+    id: screen_manager
+    transition: FadeTransition(duration=.2)
+    
+    Home:
+        id: home
+        name: "home"
+
+        MDBackdrop:
+            title: 'DripTip'
+            id: backdrop
+            header_text: "Explorer:"
+            left_action_items: [['menu', lambda x: self.open()]]
+            header: False
+            
+            MDBackdropBackLayer:
+                HomeBackdropBackLayer:
+                    id: backlayer
+                    
+            MDBackdropFrontLayer:
+                id: front_layer
+                HomeBackdropFrontLayer:
+                    id: backdrop_font_layer
+
