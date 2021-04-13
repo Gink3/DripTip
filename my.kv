@@ -317,9 +317,36 @@
             Button:
                 text: "Decline"
                 pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                on_release: 
+                    app.root.current = "report_advice"
+                    root.manager.transition.direction = "down" 
             Button:
                 text: "Accept"
                 pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+<seeker_1>:
+    name: "report_advice"
+
+    GridLayout:
+        cols: 1 
+        Label: 
+            text: "Would you like to report the advice for Malicious intnet?" 
+        
+        GridLayout:
+            cols: 2 
+            Button:
+                text: "Yes"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+            Button:
+                text: "No"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                on_release:
+                    app.root.current = "main"
+                    root.manager.transition.direction = "down"
+
+
+
 
 
 

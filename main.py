@@ -101,6 +101,9 @@ class seeker(Screen):   # page where the seeker sees the advice given by the adv
     pass
 
 
+class seeker_1(Screen):  # ability to report advice after advice has been declined 
+    pass 
+
 class WindowManager(ScreenManager):
     pass
 
@@ -131,7 +134,7 @@ kv = Builder.load_file("my.kv")
 sm = WindowManager()
 db = DataBase("users.txt")
 
-screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main"),Profile(name="profile"),seeker(name="seeker_sees"), advisor(name="advisor_sends")]
+screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main"),Profile(name="profile"),seeker(name="seeker_sees"), seeker_1(name="report_advice"), advisor(name="advisor_sends")]
 for screen in screens:
     sm.add_widget(screen)
 
