@@ -1,4 +1,85 @@
 #:kivy 2.0.0
+#:import Image kivy.uix.image
+#:import * kivy.graphics
+
+<GothLabel>:
+    MDLabel:
+        text: "Goth"
+        bold: True
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+    MDIconButton:
+        icon: "arrow-right"
+        pos_hint: {"center_x": 0.98, "center_y": 0.5}
+
+<AthleticLabel>:
+    MDLabel:
+        text: "Athletic"
+        bold: True
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+    MDIconButton:
+        icon: "arrow-right"
+        pos_hint: {"center_x": 0.98, "center_y": 0.5}
+
+<ProfessionalLabel>:
+    MDLabel:
+        text: "Professional"
+        bold: True
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+    MDIconButton:
+        icon: "arrow-right"
+        pos_hint: {"center_x": 0.98, "center_y": 0.5}
+
+<CasualLabel>:
+    MDLabel:
+        text: "Casual"
+        bold: True
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+    MDIconButton:
+        icon: "arrow-right"
+        pos_hint: {"center_x": 0.98, "center_y": 0.5}
+
+<PhotoTile>:
+    size_hint_y: None
+    keep_ratio: True
+    allow_stretch: False
+    height: "150dp"
+
+<HomeExplorer>:
+    ScrollView:
+        MDGridLayout:
+            cols: 1  
+            adaptive_height: True
+            spacing: "20dp"
+            padding: "15dp"
+            
+            GothLabel:
+
+            PhotoTile:
+                source: "assets/images/goth/goth2.jpeg"
+            MDSeparator:
+
+            AthleticLabel:
+
+            PhotoTile:
+                source: "assets/images/goth/goth3.jpeg"
+
+            MDSeparator:
+
+            ProfessionalLabel:
+            
+            PhotoTile:
+                source: "assets/images/goth/goth4.jpeg"
+
+            MDSeparator:
+
+            CasualLabel:
+
+            PhotoTile:
+                source: "assets/images/goth/goth1.jpeg"
 
 <CreateAccountWindow>:
     name: "create"
@@ -83,117 +164,34 @@
 
 
 <MainWindow>:
+    BoxLayout:
+        orientation: "vertical"
+        MDToolbar:
+            title: "DripTip"
+            right_action_items: [["account", lambda x: app.callback1()]]
+            elevation: 10
+        MDBottomNavigation: 
+            MDBottomNavigationItem:
+                name: "home"
+                text: "home"
+                icon: "home"
+                HomeExplorer:
 
-    FloatLayout:
-        Button:
-            pos_hint:{'center_y': .9, }
-            size_hint:.2,0.2
-            on_release:
-                app.root.current = "profile"
-                root.manager.transition.direction = "up"
-                #root.OpenProfile()
-            Image:
-                source: 'images/BPropic.png'
-                center_x: self.parent.center_x
-                center_y: self.parent.center_y
-
-
-        Button:
-            pos_hint:{'center_x': 0.5}
-            size_hint:0.1,0.1
-            text: "See Advice" 
-            on_release:
-                app.root.current = "seeker_sees"
-                root.manager.transition.direction = "down"
-
-        Label:
-            text:"Goth"
-            font_size: (root.width**2 + root.height**2) / 13**4
-            pos_hint: {"x":0.2, "y":0.65}
-            size_hint: 0.2, 0.2
-
-        Button:
-            pos_hint:{'x': 0.2, 'y': .8}
-            size_hint:0.2,0.2
-            text: "Goth" 
-
-        Label:
-            text:"Athletic" 
-            font_size: (root.width**2 + root.height**2) / 13**4
-            pos_hint: {"x":0.6, "y":0.65}
-            size_hint: 0.2, 0.2
-
-        Button:
-            pos_hint:{'x': 0.6, 'y': .8}
-            size_hint:0.2,0.2
-            text: "Athletic" 
-
-        Label:
-            text:"Profesional" 
-            font_size: (root.width**2 + root.height**2) / 13**4
-            pos_hint: {"x":0.2, "y":0.35}
-            size_hint: 0.2, 0.2
-
-        Button:
-            pos_hint:{'x': 0.2, 'y': .5}
-            size_hint:0.2,0.2
-            text: "Profesional" 
-
-        Label:
-            text:"Urban" 
-            font_size: (root.width**2 + root.height**2) / 13**4
-            pos_hint: {"x":0.6, "y":0.35}
-            size_hint: 0.2, 0.2
-
-        Button:
-            pos_hint:{'x': 0.6, 'y': .5}
-            size_hint:0.2,0.2
-            text: "Urban" 
-
-        Label:
-            text:"Casual" 
-            font_size: (root.width**2 + root.height**2) / 13**4
-            pos_hint: {"x":0.2, "y":0.05}
-            size_hint: 0.2, 0.2
-
-        Button:
-            pos_hint:{'x': 0.2, "y": .2}
-            size_hint:0.2,0.2
-            text: "Casual" 
-
-        Label:
-            text:"Seasonal" 
-            font_size: (root.width**2 + root.height**2) / 13**4
-            pos_hint: {"x":0.6, "y":0.05}
-            size_hint: 0.2, 0.2
-
-        Button:
-            pos_hint:{'x': 0.6, 'y': .2}
-            size_hint:0.2,0.2
-            text: "Seasonal" 
-
-            
-
-        Button:
-            pos_hint:{'center_x': 0.1}
-            size_hint:0.1,0.1
-            text: "Give Advice"
-            on_release:
-                app.root.current = "advisor_sends"
-                root.manager.transition.direction = "down"
-
-        Button:
-            pos_hint:{'center_x': 0.9}
-            size_hint:0.1,0.1
-
-            Image:
-                source: 'images/camera.png'
-                center_x: self.parent.center_x
-                center_y: self.parent.center_y
-
-        
-
-
+            MDBottomNavigationItem:
+                name: "advisors"
+                text: "advisors"
+                icon: "account-tie"
+                Carousel: 
+                    direction: "right"
+                    PhotoTile:
+                        source: "assets/images/goth/goth2.jpeg"
+                    PhotoTile:
+                        source: "assets/images/goth/goth2.jpeg"
+            MDBottomNavigationItem:
+                name: "messages"
+                text: "messages"
+                icon: "android-messages"    
+   
 <Profile>:
     name: "profile"
     n: n

@@ -1,5 +1,5 @@
 # main.py
-
+import kivy
 from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -8,11 +8,11 @@ from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivy.config import Config
 from kivy.uix.gridlayout import GridLayout
-from kivy.clock import Clock
+from kivy.uix.floatlayout import FloatLayout
+from kivymd.uix.imagelist import SmartTileWithLabel
 from kivy.core.window import Window
 
 
-Clock.max_iteration = 20
 Window.size = (390,763)
 
 import pyrebase 
@@ -30,6 +30,24 @@ config = {
 
 firebase = pyrebase.initialize_app(config)
 authentication = firebase.auth()
+
+class HomeExplorer(Screen):
+    pass
+
+class GothLabel(FloatLayout):
+    pass
+
+class AthleticLabel(FloatLayout):
+    pass
+
+class ProfessionalLabel(FloatLayout):
+    pass
+
+class CasualLabel(FloatLayout):
+    pass
+
+class PhotoTile(SmartTileWithLabel):
+    pass
 
 class CreateAccountWindow(Screen):
     namee = ObjectProperty(None)
@@ -81,21 +99,7 @@ class LoginWindow(Screen):
 
 
 class MainWindow(Screen):
-    n = ObjectProperty(None)
-    created = ObjectProperty(None)
-    email = ObjectProperty(None)
-    current = ""
-    def OpenProfile(self):
-        MainWindow.current = self.email.text
-        self.reset()
-        sm.current = "profile"
-
-    def on_enter(self, *args):
-        print("hi")
-
-    def OpenAdvisor(self):
-        sm.current = "advisor_sends"
-
+    pass
 class Profile(Screen):
     n = ObjectProperty(None)
     created = ObjectProperty(None)
@@ -112,10 +116,6 @@ class advisor(Screen):
         messageSent() 
 
 class seeker(Screen):   # page where the seeker sees the advice given by the advisor 
-    pass
-
-
-class WindowManager(ScreenManager):
     pass
 
 
@@ -148,7 +148,13 @@ class MyMainApp(MDApp):
 
     def build(self):
         kv = Builder.load_file("my.kv")
-        screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main"),Profile(name="profile")]
+        screens = [
+                   LoginWindow(name="login"), 
+                   CreateAccountWindow(name="create"),
+                   MainWindow(name="main"),
+                   Profile(name="profile")
+
+                  ]
         for i in screens: 
             sm.add_widget(i)
         sm.current = "login"
