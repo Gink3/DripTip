@@ -1,249 +1,197 @@
+#:kivy 2.0.0
+#:import Image kivy.uix.image
+#:import * kivy.graphics
+
+<GothLabel>:
+    MDLabel:
+        text: "Goth"
+        bold: True
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+    MDIconButton:
+        icon: "arrow-right"
+        pos_hint: {"center_x": 0.98, "center_y": 0.5}
+
+<AthleticLabel>:
+    MDLabel:
+        text: "Athletic"
+        bold: True
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+    MDIconButton:
+        icon: "arrow-right"
+        pos_hint: {"center_x": 0.98, "center_y": 0.5}
+
+<ProfessionalLabel>:
+    MDLabel:
+        text: "Professional"
+        bold: True
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+    MDIconButton:
+        icon: "arrow-right"
+        pos_hint: {"center_x": 0.98, "center_y": 0.5}
+
+<CasualLabel>:
+    MDLabel:
+        text: "Casual"
+        bold: True
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+    MDIconButton:
+        icon: "arrow-right"
+        pos_hint: {"center_x": 0.98, "center_y": 0.5}
+
+<PhotoTile>:
+    size_hint_y: None
+    keep_ratio: True
+    allow_stretch: False
+    height: "150dp"
+
+<HomeExplorer>:
+    ScrollView:
+        MDGridLayout:
+            cols: 1  
+            adaptive_height: True
+            spacing: "20dp"
+            padding: "15dp"
+            
+            GothLabel:
+
+            PhotoTile:
+                source: "assets/images/goth/goth2.jpeg"
+            MDSeparator:
+
+            AthleticLabel:
+
+            PhotoTile:
+                source: "assets/images/goth/goth3.jpeg"
+
+            MDSeparator:
+
+            ProfessionalLabel:
+            
+            PhotoTile:
+                source: "assets/images/goth/goth4.jpeg"
+
+            MDSeparator:
+
+            CasualLabel:
+
+            PhotoTile:
+                source: "assets/images/goth/goth1.jpeg"
+
 <CreateAccountWindow>:
     name: "create"
 
     namee: namee
     email: email
     password: passw
+    userType: userType
 
-    FloatLayout:
-        cols:1
-
-        FloatLayout:
-            size: root.width, root.height/2
-
-            Label:
-                text: "Create an Account"
-                size_hint: 0.8, 0.2
-                pos_hint: {"x":0.1, "top":1}
-                font_size: (root.width**2 + root.height**2) / 14**4
-
-            Label:
-                size_hint: 0.5,0.12
-                pos_hint: {"x":0, "top":0.8}
-                text: "Name: "
-                font_size: (root.width**2 + root.height**2) / 14**4
-
-            TextInput:
-                pos_hint: {"x":0.5, "top":0.8}
-                size_hint: 0.4, 0.12
-                id: namee
-                multiline: False
-                font_size: (root.width**2 + root.height**2) / 14**4
-
-            Label:
-                size_hint: 0.5,0.12
-                pos_hint: {"x":0, "top":0.8-0.13}
-                text: "Email: "
-                font_size: (root.width**2 + root.height**2) / 14**4
-
-            TextInput:
-                pos_hint: {"x":0.5, "top":0.8-0.13}
-                size_hint: 0.4, 0.12
-                id: email
-                multiline: False
-                font_size: (root.width**2 + root.height**2) / 14**4
-
-            Label:
-                size_hint: 0.5,0.12
-                pos_hint: {"x":0, "top":0.8-0.13*2}
-                text: "Password: "
-                font_size: (root.width**2 + root.height**2) / 14**4
-
-            TextInput:
-                pos_hint: {"x":0.5, "top":0.8-0.13*2}
-                size_hint: 0.4, 0.12
-                id: passw
-                multiline: False
-                password: True
-                font_size: (root.width**2 + root.height**2) / 14**4
-
-        Button:
-            pos_hint:{"x":0.3,"y":0.25}
-            size_hint: 0.4, 0.1
-            font_size: (root.width**2 + root.height**2) / 17**4
-            text: "Already have an Account? Log In"
-            on_release:
-                root.manager.transition.direction = "left"
-                root.login()
-
-        Button:
-            pos_hint:{"x":0.2,"y":0.05}
-            size_hint: 0.6, 0.15
-            text: "Submit"
-            font_size: (root.width**2 + root.height**2) / 14**4
-            on_release:
-                root.manager.transition.direction = "left"
-                root.submit()
-
+    MDFloatLayout:
+        MDCard:
+            pos_hint:{"center_x": .5, "center_y": .5}
+            MDFloatLayout:
+                MDTextField:
+                    id: namee
+                    hint_text: "Name"
+                    size_hint_x: .8
+                    pos_hint: {"center_x": .5, "center_y": .8}
+                MDTextField:
+                    id: email
+                    hint_text: "Email"
+                    size_hint_x: .8
+                    pos_hint: {"center_x": .5, "center_y": .7}
+                MDTextField:
+                    id: passw
+                    password: True
+                    hint_text: "Password"
+                    size_hint_x: .8
+                    pos_hint: {"center_x": .5, "center_y": .6}
+                MDTextField:
+                    id: userType
+                    hint_text: "Advisor or Advise Seeker"
+                    size_hint_x: .8
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                MDRaisedButton:
+                    text: "Log In"
+                    pos_hint: {"center_x": .3,"center_y": .4}   
+                    on_release: 
+                        root.manager.transition.direction = "up"
+                        root.login()
+                MDRaisedButton:
+                    text: "Submit"
+                    pos_hint: {"center_x": .7,"center_y": .4}   
+                    on_release:
+                        root.manager.transition.direction = "left"
+                        root.submit()
 
 <LoginWindow>:
     name: "login"
-
     email: email
     password: password
 
-    FloatLayout:
-
-        Label:
-            text:"Email: "
-            font_size: (root.width**2 + root.height**2) / 13**4
-            pos_hint: {"x":0.1, "top":0.9}
-            size_hint: 0.35, 0.15
-
-        TextInput:
-            id: email
-            font_size: (root.width**2 + root.height**2) / 13**4
-            multiline: False
-            pos_hint: {"x": 0.45 , "top":0.9}
-            size_hint: 0.4, 0.15
-
-        Label:
-            text:"Password: "
-            font_size: (root.width**2 + root.height**2) / 13**4
-            pos_hint: {"x":0.1, "top":0.7}
-            size_hint: 0.35, 0.15
-
-        TextInput:
-            id: password
-            font_size: (root.width**2 + root.height**2) / 13**4
-            multiline: False
-            password: True
-            pos_hint: {"x": 0.45, "top":0.7}
-            size_hint: 0.4, 0.15
-
-        Button:
-            pos_hint:{"x":0.2,"y":0.05}
-            size_hint: 0.6, 0.2
-            font_size: (root.width**2 + root.height**2) / 13**4
-            text: "Login"
-            on_release:
-                root.manager.transition.direction = "up"
-                root.loginBtn()
-
-        Button:
-            pos_hint:{"x":0.3,"y":0.3}
-            size_hint: 0.4, 0.1
-            font_size: (root.width**2 + root.height**2) / 17**4
-            text: "Sign Up!"
-            on_release:
-                root.manager.transition.direction = "right"
-                root.createBtn()
+    MDFloatLayout:
+        MDCard:
+            pos_hint:{"center_x": .5, "center_y": .5}
+            MDFloatLayout:
+                MDTextField:
+                    id: email
+                    hint_text: "Email"
+                    size_hint_x: .8
+                    pos_hint: {"center_x": .5, "center_y": .6}
+                MDTextField:
+                    id: password
+                    hint_text: "Password"
+                    password: True
+                    size_hint_x: .8
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                MDRaisedButton:
+                    text: "Login"
+                    size_hint_x: .39
+                    pos_hint: {"center_x": .3,"center_y": .3}   
+                    on_release: 
+                        root.manager.transition.direction = "up"
+                        root.loginBtn()
+                MDRaisedButton:
+                    text: "Sign Up!"
+                    size_hint_x: .39
+                    pos_hint: {"center_x": .7,"center_y": .3}   
+                    on_release:
+                        root.manager.transition.direction = "right"
+                        root.createBtn()
 
 
 <MainWindow>:
+    BoxLayout:
+        orientation: "vertical"
+        MDToolbar:
+            title: "DripTip"
+            right_action_items: [["account", lambda x: app.callback1()]]
+            elevation: 10
+        MDBottomNavigation: 
+            MDBottomNavigationItem:
+                name: "home"
+                text: "home"
+                icon: "home"
+                HomeExplorer:
 
-    FloatLayout:
-
-
-        Button:
-            pos_hint:{'center_y': .9, }
-            size_hint:.2,0.2
-            on_release:
-                app.root.current = "profile"
-                root.manager.transition.direction = "up"
-                #root.OpenProfile()
-            Image:
-                source: 'images/BPropic.png'
-                center_x: self.parent.center_x
-                center_y: self.parent.center_y
-
-
-        Button:
-            pos_hint:{'center_x': 0.5}
-            size_hint:0.1,0.1
-            text: "See Advice" 
-            on_release:
-                app.root.current = "seeker_sees"
-                root.manager.transition.direction = "down"
-
-        Label:
-            text:"Goth"
-            font_size: (root.width**2 + root.height**2) / 13**4
-            pos_hint: {"x":0.2, "y":0.65}
-            size_hint: 0.2, 0.2
-
-        Button:
-            pos_hint:{'x': 0.2, 'y': .8}
-            size_hint:0.2,0.2
-            text: "Goth" 
-
-        Label:
-            text:"Athletic" 
-            font_size: (root.width**2 + root.height**2) / 13**4
-            pos_hint: {"x":0.6, "y":0.65}
-            size_hint: 0.2, 0.2
-
-        Button:
-            pos_hint:{'x': 0.6, 'y': .8}
-            size_hint:0.2,0.2
-            text: "Athletic" 
-
-        Label:
-            text:"Profesional" 
-            font_size: (root.width**2 + root.height**2) / 13**4
-            pos_hint: {"x":0.2, "y":0.35}
-            size_hint: 0.2, 0.2
-
-        Button:
-            pos_hint:{'x': 0.2, 'y': .5}
-            size_hint:0.2,0.2
-            text: "Profesional" 
-
-        Label:
-            text:"Urban" 
-            font_size: (root.width**2 + root.height**2) / 13**4
-            pos_hint: {"x":0.6, "y":0.35}
-            size_hint: 0.2, 0.2
-
-        Button:
-            pos_hint:{'x': 0.6, 'y': .5}
-            size_hint:0.2,0.2
-            text: "Urban" 
-
-        Label:
-            text:"Casual" 
-            font_size: (root.width**2 + root.height**2) / 13**4
-            pos_hint: {"x":0.2, "y":0.05}
-            size_hint: 0.2, 0.2
-
-        Button:
-            pos_hint:{'x': 0.2, "y": .2}
-            size_hint:0.2,0.2
-            text: "Casual" 
-
-        Label:
-            text:"Seasonal" 
-            font_size: (root.width**2 + root.height**2) / 13**4
-            pos_hint: {"x":0.6, "y":0.05}
-            size_hint: 0.2, 0.2
-
-        Button:
-            pos_hint:{'x': 0.6, 'y': .2}
-            size_hint:0.2,0.2
-            text: "Seasonal" 
-
-            
-
-        Button:
-            pos_hint:{'center_x': 0.1}
-            size_hint:0.1,0.1
-            text: "Give Advice"
-            on_release:
-                app.root.current = "advisor_sends"
-                root.manager.transition.direction = "down"
-
-        Button:
-            pos_hint:{'center_x': 0.9}
-            size_hint:0.1,0.1
-
-            Image:
-                source: 'images/camera.png'
-                center_x: self.parent.center_x
-                center_y: self.parent.center_y
-
-        
-
-
+            MDBottomNavigationItem:
+                name: "advisors"
+                text: "advisors"
+                icon: "account-tie"
+                Carousel: 
+                    direction: "right"
+                    PhotoTile:
+                        source: "assets/images/goth/goth2.jpeg"
+                    PhotoTile:
+                        source: "assets/images/goth/goth2.jpeg"
+            MDBottomNavigationItem:
+                name: "messages"
+                text: "messages"
+                icon: "android-messages"    
+   
 <Profile>:
     name: "profile"
     n: n

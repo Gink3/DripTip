@@ -1,31 +1,64 @@
 # main.py
-
-from kivy.app import App
+import kivy
+from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
-from database import DataBase
 from kivy.config import Config
 from kivy.uix.gridlayout import GridLayout
-Config.set('graphics', 'position', 'custom')
-Config.set('graphics', 'left', 0)
-Config.set('graphics', 'top', 0)
+from kivy.uix.floatlayout import FloatLayout
+from kivymd.uix.imagelist import SmartTileWithLabel
+from kivy.core.window import Window
 
+
+Window.size = (390,763)
+
+import pyrebase 
+
+config = {
+    "apiKey": "AIzaSyAdLveOQ86Z44LqHmTY-bQBQmMPQ1DW3HE",
+    "authDomain": "driptip-37b83.firebaseapp.com",
+    "databaseURL": "https://driptip-37b83-default-rtdb.firebaseio.com",
+    "projectId": "driptip-37b83",
+    "storageBucket": "driptip-37b83.appspot.com",
+    "messagingSenderId": "201557623795",
+    "appId": "1:201557623795:web:1cad1c77d610d48f990886",
+    "measurementId": "G-NXFC49V69D"
+}
+
+firebase = pyrebase.initialize_app(config)
+authentication = firebase.auth()
+
+class HomeExplorer(Screen):
+    pass
+
+class GothLabel(FloatLayout):
+    pass
+
+class AthleticLabel(FloatLayout):
+    pass
+
+class ProfessionalLabel(FloatLayout):
+    pass
+
+class CasualLabel(FloatLayout):
+    pass
+
+class PhotoTile(SmartTileWithLabel):
+    pass
 
 class CreateAccountWindow(Screen):
     namee = ObjectProperty(None)
     email = ObjectProperty(None)
     password = ObjectProperty(None)
-
+    userType = ObjectProperty(None)
     def submit(self):
         if self.namee.text != "" and self.email.text != "" and self.email.text.count("@") == 1 and self.email.text.count(".") > 0:
             if self.password != "":
-                db.add_user(self.email.text, self.password.text, self.namee.text)
-
+                user = authentication.create_user_with_email_and_password(self.email.text, self.password.text)
                 self.reset()
-
                 sm.current = "login"
             else:
                 invalidForm()
@@ -47,11 +80,13 @@ class LoginWindow(Screen):
     password = ObjectProperty(None)
 
     def loginBtn(self):
-        if db.validate(self.email.text, self.password.text):
+        try:
+            authentication.sign_in_with_email_and_password(self.email.text, self.password.text)
             MainWindow.current = self.email.text
             self.reset()
             sm.current = "main"
-        else:
+        
+        except:
             invalidLogin()
 
     def createBtn(self):
@@ -64,24 +99,7 @@ class LoginWindow(Screen):
 
 
 class MainWindow(Screen):
-    n = ObjectProperty(None)
-    created = ObjectProperty(None)
-    email = ObjectProperty(None)
-    current = ""
-    def OpenProfile(self):
-        MainWindow.current = self.email.text
-        self.reset()
-        sm.current = "profile"
-
-    def on_enter(self, *args):
-        password, name, created = db.get_user(self.current)
-        self.n = "Account Name: " + name
-        self.email = "Email: " + self.current
-        self.created = "Created On: " + created
-
-    def OpenAdvisor(self):
-        sm.current = "advisor_sends"
-
+    pass
 class Profile(Screen):
     n = ObjectProperty(None)
     created = ObjectProperty(None)
@@ -101,6 +119,7 @@ class seeker(Screen):   # page where the seeker sees the advice given by the adv
     pass
 
 
+<<<<<<< HEAD
 class seeker_1(Screen):  # ability to report advice after advice has been declined 
     pass 
 
@@ -108,6 +127,8 @@ class WindowManager(ScreenManager):
     pass
 
 
+=======
+>>>>>>> 24a07d5d3338f5ae3021e84c9b587fb89509ff39
 def invalidLogin():
     pop = Popup(title='Invalid Login',
                   content=Label(text='Invalid username or password.'),
@@ -128,9 +149,14 @@ def messageSent():
                 size_hint=(None, None), size=(400, 400))   
     pop.open()
 
+sm = ScreenManager()
 
-kv = Builder.load_file("my.kv")
+class MyMainApp(MDApp):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.theme_cls.primary_palette = "Red"
 
+<<<<<<< HEAD
 sm = WindowManager()
 db = DataBase("users.txt")
 
@@ -146,9 +172,21 @@ sm.current = "login"
 
 
 class MyMainApp(App):
+=======
+>>>>>>> 24a07d5d3338f5ae3021e84c9b587fb89509ff39
     def build(self):
-        return sm
+        kv = Builder.load_file("my.kv")
+        screens = [
+                   LoginWindow(name="login"), 
+                   CreateAccountWindow(name="create"),
+                   MainWindow(name="main"),
+                   Profile(name="profile")
 
+                  ]
+        for i in screens: 
+            sm.add_widget(i)
+        sm.current = "login"
+        return sm
 
 if __name__ == "__main__":
     MyMainApp().run()
