@@ -10,7 +10,8 @@ from kivy.uix.label import Label
 from kivy.config import Config
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.floatlayout import FloatLayout
-from kivymd.uix.imagelist import SmartTileWithLabel
+from kivymd.uix.imagelist import SmartTileWithStar
+from kivy.uix.image import Image
 from kivy.core.window import Window
 
 Window.size = (390,763)
@@ -30,7 +31,7 @@ class ProfessionalLabel(FloatLayout):
 class CasualLabel(FloatLayout):
     pass
 
-class PhotoTile(SmartTileWithLabel):
+class PhotoTile(Image):
     pass
 
 class CreateAccountWindow(Screen):
