@@ -12,24 +12,9 @@ from kivy.uix.floatlayout import FloatLayout
 from kivymd.uix.imagelist import SmartTileWithLabel
 from kivy.core.window import Window
 
+from database import DataBase
 
 Window.size = (390,763)
-
-import pyrebase 
-
-config = {
-    "apiKey": "AIzaSyAdLveOQ86Z44LqHmTY-bQBQmMPQ1DW3HE",
-    "authDomain": "driptip-37b83.firebaseapp.com",
-    "databaseURL": "https://driptip-37b83-default-rtdb.firebaseio.com",
-    "projectId": "driptip-37b83",
-    "storageBucket": "driptip-37b83.appspot.com",
-    "messagingSenderId": "201557623795",
-    "appId": "1:201557623795:web:1cad1c77d610d48f990886",
-    "measurementId": "G-NXFC49V69D"
-}
-
-firebase = pyrebase.initialize_app(config)
-authentication = firebase.auth()
 
 class HomeExplorer(Screen):
     pass
@@ -119,16 +104,6 @@ class seeker(Screen):   # page where the seeker sees the advice given by the adv
     pass
 
 
-<<<<<<< HEAD
-class seeker_1(Screen):  # ability to report advice after advice has been declined 
-    pass 
-
-class WindowManager(ScreenManager):
-    pass
-
-
-=======
->>>>>>> 24a07d5d3338f5ae3021e84c9b587fb89509ff39
 def invalidLogin():
     pop = Popup(title='Invalid Login',
                   content=Label(text='Invalid username or password.'),
@@ -143,6 +118,14 @@ def invalidForm():
 
     pop.open()
 
+
+class seeker_1(Screen):  # ability to report advice after advice has been declined 
+    pass 
+
+class WindowManager(ScreenManager):
+    pass
+
+
 def messageSent():
     pop = Popup(title='Tip Sent!',
                 content=Label(text='Your Tip has been sent!'),
@@ -151,29 +134,12 @@ def messageSent():
 
 sm = ScreenManager()
 
-class MyMainApp(MDApp):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.theme_cls.primary_palette = "Red"
-
-<<<<<<< HEAD
 sm = WindowManager()
 db = DataBase("users.txt")
 
 screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main"),Profile(name="profile"),seeker(name="seeker_sees"), seeker_1(name="report_advice"), advisor(name="advisor_sends")]
-for screen in screens:
-    sm.add_widget(screen)
 
-sm.current = "login"
-
-
-
-
-
-
-class MyMainApp(App):
-=======
->>>>>>> 24a07d5d3338f5ae3021e84c9b587fb89509ff39
+class MyMainApp(MDApp):
     def build(self):
         kv = Builder.load_file("my.kv")
         screens = [
