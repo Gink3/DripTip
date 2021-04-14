@@ -42,7 +42,6 @@ class CreateAccountWindow(Screen):
     def submit(self):
         if self.namee.text != "" and self.email.text != "" and self.email.text.count("@") == 1 and self.email.text.count(".") > 0:
             if self.password != "":
-                user = authentication.create_user_with_email_and_password(self.email.text, self.password.text)
                 self.reset()
                 sm.current = "login"
             else:
@@ -66,7 +65,6 @@ class LoginWindow(Screen):
 
     def loginBtn(self):
         try:
-            authentication.sign_in_with_email_and_password(self.email.text, self.password.text)
             MainWindow.current = self.email.text
             self.reset()
             sm.current = "main"
