@@ -1,5 +1,6 @@
 # main.py
 import kivy
+from database import DataBase
 from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -11,8 +12,6 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.floatlayout import FloatLayout
 from kivymd.uix.imagelist import SmartTileWithLabel
 from kivy.core.window import Window
-
-from database import DataBase
 
 Window.size = (390,763)
 
@@ -39,11 +38,14 @@ class CreateAccountWindow(Screen):
     email = ObjectProperty(None)
     password = ObjectProperty(None)
     userType = ObjectProperty(None)
+
     def submit(self):
         if self.namee.text != "" and self.email.text != "" and self.email.text.count("@") == 1 and self.email.text.count(".") > 0:
             if self.password != "":
-                user = authentication.create_user_with_email_and_password(self.email.text, self.password.text)
+                db.add_user(self.email.text, self.password.text, self.namee.text)
+
                 self.reset()
+
                 sm.current = "login"
             else:
                 invalidForm()
@@ -65,13 +67,11 @@ class LoginWindow(Screen):
     password = ObjectProperty(None)
 
     def loginBtn(self):
-        try:
-            authentication.sign_in_with_email_and_password(self.email.text, self.password.text)
-            MainWindow.current = self.email.text
+        if db.validate(self.email.text, self.password.text):
+            Profile.current = self.email.text
             self.reset()
             sm.current = "main"
-        
-        except:
+        else:
             invalidLogin()
 
     def createBtn(self):
@@ -82,16 +82,23 @@ class LoginWindow(Screen):
         self.email.text = ""
         self.password.text = ""
 
-
-class MainWindow(Screen):
-    pass
 class Profile(Screen):
     n = ObjectProperty(None)
     created = ObjectProperty(None)
     email = ObjectProperty(None)
     current = ""
+
     def logOut(self):
         sm.current = "login"
+
+    def on_enter(self, *args):
+        password, name, created = db.get_user(self.current)
+        self.n.text = "Account Name: " + name
+        self.email.text = "Email: " + self.current
+        self.created.text = "Created On: " + created
+
+class MainWindow(Screen):
+    pass
 
 class advisor(Screen):
     tip = ObjectProperty(None)
@@ -132,27 +139,31 @@ def messageSent():
                 size_hint=(None, None), size=(400, 400))   
     pop.open()
 
-sm = ScreenManager()
-
 sm = WindowManager()
 db = DataBase("users.txt")
 
 screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main"),Profile(name="profile"),seeker(name="seeker_sees"), seeker_1(name="report_advice"), advisor(name="advisor_sends")]
 
 class MyMainApp(MDApp):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.theme_cls.primary_palette = "Gray"
+        
     def build(self):
         kv = Builder.load_file("my.kv")
         screens = [
                    LoginWindow(name="login"), 
                    CreateAccountWindow(name="create"),
                    MainWindow(name="main"),
-                   Profile(name="profile")
-
+                   Profile(name="profile")          
                   ]
         for i in screens: 
             sm.add_widget(i)
         sm.current = "login"
         return sm
+    
+    def callback1(self):
+        sm.current = "profile"
 
 if __name__ == "__main__":
     MyMainApp().run()
