@@ -221,14 +221,18 @@
             pos_hint:{"x": 0.1, "top":0.5}
             size_hint:0.8, 0.2
             text: "Created: "
-
-        MDFlatButton:
-            pos_hint:{"x":0.2, "y": 0.1}
-            size_hint:0.6,0.2
+        MDRaisedButton:
             text: "Log Out"
-            on_release:
+            pos_hint: {"center_x": .3,"center_y": .3}   
+            on_release: 
+                root.manager.transition.direction = "up"
                 app.root.current = "login"
-                root.manager.transition.direction = "down"
+        MDRaisedButton:
+            text: "Home"
+            pos_hint: {"center_x": .7,"center_y": .3}   
+            on_release:
+                root.manager.transition.direction = "right"
+                app.root.current = "main"
 
 <advisor>:
     name: "advisor_sends"
