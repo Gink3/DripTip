@@ -43,6 +43,7 @@ class CreateAccountWindow(Screen):
     def submit(self):
         if self.namee.text != "" and self.email.text != "" and self.email.text.count("@") == 1 and self.email.text.count(".") > 0:
             if self.password != "":
+
                 db.add_user(self.email.text, self.password.text, self.namee.text)
 
                 self.reset()
@@ -70,6 +71,7 @@ class LoginWindow(Screen):
     def loginBtn(self):
         if db.validate(self.email.text, self.password.text):
             Profile.current = self.email.text
+
             self.reset()
             sm.current = "main"
         else:
