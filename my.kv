@@ -11,6 +11,9 @@
     MDIconButton:
         icon: "arrow-right"
         pos_hint: {"center_x": 0.98, "center_y": 0.5}
+        on_press: root.gothSection()
+
+        
 
 <AthleticLabel>:
     MDLabel:
@@ -95,7 +98,7 @@
             MDFloatLayout:
                 MDTextField:
                     id: namee
-                    hint_text: "Name"
+                    hint_text: "Account Name: "
                     size_hint_x: .8
                     pos_hint: {"center_x": .5, "center_y": .8}
                 MDTextField:
@@ -195,7 +198,17 @@
             MDBottomNavigationItem:
                 name: "messages"
                 text: "messages"
-                icon: "android-messages"    
+                icon: "android-messages" 
+                MDFloatLayout:
+                    MDTextField:
+                        id: message_sent
+                        hint_text: "Type message..."
+                        size_hint_x: .8
+                        pos_hint: {"center_x": .5, "center_y": .1}
+                    
+
+
+
    
 <Profile>:
     name: "profile"
@@ -208,7 +221,7 @@
             id: n
             pos_hint:{"x": 0.1, "top":0.9}
             size_hint:0.8, 0.2
-            text: "Account Name: + " 
+            text: "Account Name: " 
 
         MDLabel:
             id: email
@@ -301,6 +314,26 @@
                 on_release:
                     app.root.current = "main"
                     root.manager.transition.direction = "down"
+                    
+<Goth>:
+    name: "gothSec"
+    
+    BoxLayout:
+        orientation: "vertical"
+        MDToolbar:
+            title: "Goth"
+            elevation: 10
+        MDLabel:
+            text: "Data unavailable until FireBase Authentication"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        MDRaisedButton:
+            text: "Go Back"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+            on_press:
+                app.root.current = "main"
+                root.manager.transition.direction = "left"
+
+
 
 
 

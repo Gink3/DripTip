@@ -13,6 +13,10 @@ from kivy.uix.floatlayout import FloatLayout
 from kivymd.uix.imagelist import SmartTileWithStar
 from kivy.uix.image import Image
 from kivy.core.window import Window
+import socket_client
+from kivy.uix.scrollview import ScrollView
+from kivy.uix.textinput import TextInput
+from kivy.uix.button import Button
 
 Window.size = (390,763)
 
@@ -20,7 +24,8 @@ class HomeExplorer(Screen):
     pass
 
 class GothLabel(FloatLayout):
-    pass
+    def gothSection(self):
+        sm.current = "gothSec"
 
 class AthleticLabel(FloatLayout):
     pass
@@ -100,6 +105,13 @@ class Profile(Screen):
         self.email.text = "Email: " + self.current
         self.created.text = "Created On: " + created
 
+class Messaging(Screen):
+    pass
+
+class Goth(Screen):
+    pass
+
+
 class MainWindow(Screen):
     pass
 
@@ -111,7 +123,11 @@ class advisor(Screen):
         messageSent() 
 
 class seeker(Screen):   # page where the seeker sees the advice given by the advisor 
-    pass
+    def on_enter(self, *args):
+        password, name, created = db.get_user(self.current)
+        self.n.text = "Account Name: shit ass" + name
+        self.email.text = "Email: " + self.current
+        self.created.text = "Created On: " + created
 
 
 def invalidLogin():
@@ -145,10 +161,11 @@ def messageSent():
 sm = WindowManager()
 db = DataBase("users.txt")
 
-screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main"),Profile(name="profile"),seeker(name="seeker_sees"), seeker_1(name="report_advice"), advisor(name="advisor_sends")]
+screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main"),Profile(name="profile"),seeker(name="seeker_sees"), seeker_1(name="report_advice"), advisor(name="advisor_sends"), Goth(name="gothSec")]
 
 class MyMainApp(MDApp):
     def __init__(self, **kwargs):
+
         super().__init__(**kwargs)
         self.theme_cls.primary_palette = "Gray"
         
@@ -158,7 +175,8 @@ class MyMainApp(MDApp):
                    LoginWindow(name="login"), 
                    CreateAccountWindow(name="create"),
                    MainWindow(name="main"),
-                   Profile(name="profile")          
+                   Profile(name="profile"),   
+                   Goth(name="gothSec")
                   ]
         for i in screens: 
             sm.add_widget(i)
@@ -167,6 +185,18 @@ class MyMainApp(MDApp):
     
     def callback1(self):
         sm.current = "profile"
+    
+    def callback2(self):
+        sm.current = "gothSec"
 
 if __name__ == "__main__":
     MyMainApp().run()
+
+    def update_chat_history_layout(self, _=None):
+            # Set layout height to whatever height of chat history text is + 15 pixels
+            # (adds a bit of space at the bottom)
+            # Set chat history label to whatever height of chat history text is
+            # Set width of chat history text to 98 of the label width (adds small margins)
+            self.layout.height = self.chat_history.texture_size[1] + 15
+            self.chat_history.height = self.chat_history.texture_size[1]
+            self.chat_history.text_size = (self.chat_history.width * 0.98, None)
