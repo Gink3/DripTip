@@ -1,9 +1,6 @@
 # main.py
 import kivy
-<<<<<<< HEAD
-=======
 from database import DataBase
->>>>>>> 00173c660e2f9919bd52bf562ccb0100848b1403
 from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -13,25 +10,22 @@ from kivy.uix.label import Label
 from kivy.config import Config
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.floatlayout import FloatLayout
-<<<<<<< HEAD
-from kivymd.uix.imagelist import SmartTileWithLabel
-from kivy.core.window import Window
-
-from database import DataBase
-
-=======
 from kivymd.uix.imagelist import SmartTileWithStar
 from kivy.uix.image import Image
 from kivy.core.window import Window
+import socket_client
+from kivy.uix.scrollview import ScrollView
+from kivy.uix.textinput import TextInput
+from kivy.uix.button import Button
 
->>>>>>> 00173c660e2f9919bd52bf562ccb0100848b1403
 Window.size = (390,763)
 
 class HomeExplorer(Screen):
     pass
 
 class GothLabel(FloatLayout):
-    pass
+    def gothSection(self):
+        sm.current = "gothSec"
 
 class AthleticLabel(FloatLayout):
     pass
@@ -42,11 +36,7 @@ class ProfessionalLabel(FloatLayout):
 class CasualLabel(FloatLayout):
     pass
 
-<<<<<<< HEAD
-class PhotoTile(SmartTileWithLabel):
-=======
 class PhotoTile(Image):
->>>>>>> 00173c660e2f9919bd52bf562ccb0100848b1403
     pass
 
 class CreateAccountWindow(Screen):
@@ -54,12 +44,6 @@ class CreateAccountWindow(Screen):
     email = ObjectProperty(None)
     password = ObjectProperty(None)
     userType = ObjectProperty(None)
-<<<<<<< HEAD
-    def submit(self):
-        if self.namee.text != "" and self.email.text != "" and self.email.text.count("@") == 1 and self.email.text.count(".") > 0:
-            if self.password != "":
-                self.reset()
-=======
 
     def submit(self):
         if self.namee.text != "" and self.email.text != "" and self.email.text.count("@") == 1 and self.email.text.count(".") > 0:
@@ -69,7 +53,6 @@ class CreateAccountWindow(Screen):
 
                 self.reset()
 
->>>>>>> 00173c660e2f9919bd52bf562ccb0100848b1403
                 sm.current = "login"
             else:
                 invalidForm()
@@ -91,21 +74,12 @@ class LoginWindow(Screen):
     password = ObjectProperty(None)
 
     def loginBtn(self):
-<<<<<<< HEAD
-        try:
-            MainWindow.current = self.email.text
-            self.reset()
-            sm.current = "main"
-        
-        except:
-=======
         if db.validate(self.email.text, self.password.text):
             Profile.current = self.email.text
 
             self.reset()
             sm.current = "main"
         else:
->>>>>>> 00173c660e2f9919bd52bf562ccb0100848b1403
             invalidLogin()
 
     def createBtn(self):
@@ -116,22 +90,11 @@ class LoginWindow(Screen):
         self.email.text = ""
         self.password.text = ""
 
-<<<<<<< HEAD
-
-class MainWindow(Screen):
-    pass
-=======
->>>>>>> 00173c660e2f9919bd52bf562ccb0100848b1403
 class Profile(Screen):
     n = ObjectProperty(None)
     created = ObjectProperty(None)
     email = ObjectProperty(None)
     current = ""
-<<<<<<< HEAD
-    def logOut(self):
-        sm.current = "login"
-
-=======
 
     def logOut(self):
         sm.current = "login"
@@ -142,10 +105,16 @@ class Profile(Screen):
         self.email.text = "Email: " + self.current
         self.created.text = "Created On: " + created
 
+class Messaging(Screen):
+    pass
+
+class Goth(Screen):
+    pass
+
+
 class MainWindow(Screen):
     pass
 
->>>>>>> 00173c660e2f9919bd52bf562ccb0100848b1403
 class advisor(Screen):
     tip = ObjectProperty(None)
     current = ""
@@ -154,7 +123,11 @@ class advisor(Screen):
         messageSent() 
 
 class seeker(Screen):   # page where the seeker sees the advice given by the advisor 
-    pass
+    def on_enter(self, *args):
+        password, name, created = db.get_user(self.current)
+        self.n.text = "Account Name: shit ass" + name
+        self.email.text = "Email: " + self.current
+        self.created.text = "Created On: " + created
 
 
 def invalidLogin():
@@ -185,49 +158,45 @@ def messageSent():
                 size_hint=(None, None), size=(400, 400))   
     pop.open()
 
-<<<<<<< HEAD
-sm = ScreenManager()
-
-=======
->>>>>>> 00173c660e2f9919bd52bf562ccb0100848b1403
 sm = WindowManager()
 db = DataBase("users.txt")
 
-screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main"),Profile(name="profile"),seeker(name="seeker_sees"), seeker_1(name="report_advice"), advisor(name="advisor_sends")]
+screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main"),Profile(name="profile"),seeker(name="seeker_sees"), seeker_1(name="report_advice"), advisor(name="advisor_sends"), Goth(name="gothSec")]
 
 class MyMainApp(MDApp):
-<<<<<<< HEAD
-=======
     def __init__(self, **kwargs):
+
         super().__init__(**kwargs)
         self.theme_cls.primary_palette = "Gray"
         
->>>>>>> 00173c660e2f9919bd52bf562ccb0100848b1403
     def build(self):
         kv = Builder.load_file("my.kv")
         screens = [
                    LoginWindow(name="login"), 
                    CreateAccountWindow(name="create"),
                    MainWindow(name="main"),
-<<<<<<< HEAD
-                   Profile(name="profile")
-
-=======
-                   Profile(name="profile")          
->>>>>>> 00173c660e2f9919bd52bf562ccb0100848b1403
+                   Profile(name="profile"),   
+                   Goth(name="gothSec")
                   ]
         for i in screens: 
             sm.add_widget(i)
         sm.current = "login"
         return sm
-<<<<<<< HEAD
-
-#driver code
-=======
     
     def callback1(self):
         sm.current = "profile"
+    
+    def callback2(self):
+        sm.current = "gothSec"
 
->>>>>>> 00173c660e2f9919bd52bf562ccb0100848b1403
 if __name__ == "__main__":
     MyMainApp().run()
+
+    def update_chat_history_layout(self, _=None):
+            # Set layout height to whatever height of chat history text is + 15 pixels
+            # (adds a bit of space at the bottom)
+            # Set chat history label to whatever height of chat history text is
+            # Set width of chat history text to 98 of the label width (adds small margins)
+            self.layout.height = self.chat_history.texture_size[1] + 15
+            self.chat_history.height = self.chat_history.texture_size[1]
+            self.chat_history.text_size = (self.chat_history.width * 0.98, None)
