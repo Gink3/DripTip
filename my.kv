@@ -12,8 +12,7 @@
         icon: "arrow-right"
         pos_hint: {"center_x": 0.98, "center_y": 0.5}
         on_press: root.gothSection()
-
-        
+      
 
 <AthleticLabel>:
     MDLabel:
@@ -24,6 +23,7 @@
     MDIconButton:
         icon: "arrow-right"
         pos_hint: {"center_x": 0.98, "center_y": 0.5}
+        on_press: root.athleticSection()
 
 <ProfessionalLabel>:
     MDLabel:
@@ -34,6 +34,7 @@
     MDIconButton:
         icon: "arrow-right"
         pos_hint: {"center_x": 0.98, "center_y": 0.5}
+        on_press: root.proSection()
 
 <CasualLabel>:
     MDLabel:
@@ -44,6 +45,7 @@
     MDIconButton:
         icon: "arrow-right"
         pos_hint: {"center_x": 0.98, "center_y": 0.5}
+        on_press: root.casSection()
 
 <PhotoTile>:
     size_hint_y: None
@@ -339,6 +341,59 @@
                 app.root.current = "main"
                 root.manager.transition.direction = "left"
 
+<Athletic>:
+    name: "athleticSec"
+    
+    BoxLayout:
+        orientation: "vertical"
+        MDToolbar:
+            title: "Athletic"
+            elevation: 10
+        MDLabel:
+            text: "Data unavailable until FireBase Authentication"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        MDRaisedButton:
+            text: "Go Back"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+            on_press:
+                app.root.current = "main"
+                root.manager.transition.direction = "left"
+
+<Professional>:
+    name: "proSec"
+    
+    BoxLayout:
+        orientation: "vertical"
+        MDToolbar:
+            title: "Athletic"
+            elevation: 10
+        MDLabel:
+            text: "Data unavailable until FireBase Authentication"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        MDRaisedButton:
+            text: "Go Back"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+            on_press:
+                app.root.current = "main"
+                root.manager.transition.direction = "left"
+
+<Casual>:
+    name: "casSec"
+    
+    BoxLayout:
+        orientation: "vertical"
+        MDToolbar:
+            title: "Athletic"
+            elevation: 10
+        MDLabel:
+            text: "Data unavailable until FireBase Authentication"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        MDRaisedButton:
+            text: "Go Back"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+            on_press:
+                app.root.current = "main"
+                root.manager.transition.direction = "left"
 
 
 
