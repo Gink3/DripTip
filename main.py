@@ -28,13 +28,16 @@ class GothLabel(FloatLayout):
         sm.current = "gothSec"
 
 class AthleticLabel(FloatLayout):
-    pass
+    def athleticSection(self):
+        sm.current = "athleticSec"
 
 class ProfessionalLabel(FloatLayout):
-    pass
+    def proSection(self):
+        sm.current = "proSec"
 
 class CasualLabel(FloatLayout):
-    pass
+    def casSection(self):
+        sm.current = "casSec"
 
 class PhotoTile(Image):
     pass
@@ -111,6 +114,14 @@ class Messaging(Screen):
 class Goth(Screen):
     pass
 
+class Athletic(Screen):
+    pass
+
+class Professional(Screen):
+    pass
+
+class Casual(Screen):
+    pass
 
 class MainWindow(Screen):
     pass
@@ -176,7 +187,10 @@ class MyMainApp(MDApp):
                    CreateAccountWindow(name="create"),
                    MainWindow(name="main"),
                    Profile(name="profile"),   
-                   Goth(name="gothSec")
+                   Goth(name="gothSec"),
+                   Athletic(name="athleticSec"),
+                   Professional(name="proSec"),
+                   Casual(name="casSec"),
                   ]
         for i in screens: 
             sm.add_widget(i)
