@@ -17,8 +17,12 @@ import socket_client
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
+from myfirebase import MyFirebase
 
 Window.size = (390,763)
+
+class FirebaseLoginScreen(Screen):
+    pass
 
 class HomeExplorer(Screen):
     pass
@@ -172,7 +176,7 @@ def messageSent():
 sm = WindowManager()
 db = DataBase("users.txt")
 
-screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main"),Profile(name="profile"),seeker(name="seeker_sees"), seeker_1(name="report_advice"), advisor(name="advisor_sends"), Goth(name="gothSec")]
+screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main"),Profile(name="profile"),seeker(name="seeker_sees"), seeker_1(name="report_advice"), advisor(name="advisor_sends"), Goth(name="gothSec"), FirebaseLoginScreen(name="MyFireBaseLogin") ]
 
 class MyMainApp(MDApp):
     def __init__(self, **kwargs):
@@ -183,6 +187,7 @@ class MyMainApp(MDApp):
     def build(self):
         kv = Builder.load_file("my.kv")
         screens = [
+                   FirebaseLoginScreen(name="MyFireBaseLogin"),
                    LoginWindow(name="login"), 
                    CreateAccountWindow(name="create"),
                    MainWindow(name="main"),

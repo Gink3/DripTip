@@ -1,399 +1,423 @@
 #:kivy 2.0.0
 #:import Image kivy.uix.image
 #:import * kivy.graphics
+#:include FirebaseLoginScreen/firebaseloginscreen/firebaseloginscreen.kv
+#:import FirebaseLoginScreen FirebaseLoginScreen.firebaseloginscreen
+#:import utils kivy.utils
 
-<GothLabel>:
-    MDLabel:
-        text: "Goth"
-        bold: True
-        pos_hint: {"center_x": 0.5, "center_y": 0.5}
-
-    MDIconButton:
-        icon: "arrow-right"
-        pos_hint: {"center_x": 0.98, "center_y": 0.5}
-        on_press: root.gothSection()
-      
-
-<AthleticLabel>:
-    MDLabel:
-        text: "Athletic"
-        bold: True
-        pos_hint: {"center_x": 0.5, "center_y": 0.5}
-
-    MDIconButton:
-        icon: "arrow-right"
-        pos_hint: {"center_x": 0.98, "center_y": 0.5}
-        on_press: root.athleticSection()
-
-<ProfessionalLabel>:
-    MDLabel:
-        text: "Professional"
-        bold: True
-        pos_hint: {"center_x": 0.5, "center_y": 0.5}
-
-    MDIconButton:
-        icon: "arrow-right"
-        pos_hint: {"center_x": 0.98, "center_y": 0.5}
-        on_press: root.proSection()
-
-<CasualLabel>:
-    MDLabel:
-        text: "Casual"
-        bold: True
-        pos_hint: {"center_x": 0.5, "center_y": 0.5}
-
-    MDIconButton:
-        icon: "arrow-right"
-        pos_hint: {"center_x": 0.98, "center_y": 0.5}
-        on_press: root.casSection()
-
-<PhotoTile>:
-    size_hint_y: None
-    keep_ratio: True
-    allow_stretch: False
-    height: "150dp"
-
-<HomeExplorer>:
-    ScrollView:
-        MDGridLayout:
-            cols: 1  
-            adaptive_height: True
-            spacing: "20dp"
-            padding: "15dp"
+ScreenManager:
+    FirebaseLoginScreen:
+        id: firebase_login_screen
+        name: "firebase_login_screen"
+        debug: True
+        remember_user: True
+        require_email_verification: True
+        web_api_key: "AIzaSyAdLveOQ86Z44LqHmTY-bQBQmMPQ1DW3HE" # Found in Firebase -> Project Settings -> Web API Key
+        background: "background.jpg"
+        on_login_success:
+            # Defining this function lets you program what to do when the
+            # user has logged in (probably you'll want to change screens)!
+            # Get the important user info
+            if self.login_state == 'in': app.user_localId = self.localId
+            if self.login_state == 'in': app.user_idToken = self.idToken
+            if self.login_state == "in": print("User logged in")
             
-            GothLabel:
-
-            PhotoTile:
-                source: "assets/images/goth/goth2.jpeg"
-            MDSeparator:
-
-            AthleticLabel:
-
-            PhotoTile:
-                source: "assets/images/goth/goth3.jpeg"
-
-            MDSeparator:
-
-            ProfessionalLabel:
-            
-            PhotoTile:
-                source: "assets/images/goth/goth4.jpeg"
-
-            MDSeparator:
-
-            CasualLabel:
-
-            PhotoTile:
-                source: "assets/images/goth/goth1.jpeg"
-
-<CreateAccountWindow>:
-    name: "create"
-
-    namee: namee
-    email: email
-    password: passw
-    userType: userType
-
-    MDFloatLayout:
-        MDCard:
-            pos_hint:{"center_x": .5, "center_y": .5}
-            MDFloatLayout:
-                MDTextField:
-                    id: namee
-                    hint_text: "Account Name: "
-                    size_hint_x: .8
-                    pos_hint: {"center_x": .5, "center_y": .8}
-                MDTextField:
-                    id: email
-                    hint_text: "Email"
-                    size_hint_x: .8
-                    pos_hint: {"center_x": .5, "center_y": .7}
-                MDTextField:
-                    id: passw
-                    password: True
-                    hint_text: "Password"
-                    size_hint_x: .8
-                    pos_hint: {"center_x": .5, "center_y": .6}
-                MDTextField:
-                    id: userType
-                    hint_text: "Advisor or Advise Seeker"
-                    size_hint_x: .8
-                    pos_hint: {"center_x": .5, "center_y": .5}
-                MDRaisedButton:
-                    text: "Log In"
-                    pos_hint: {"center_x": .3,"center_y": .4}   
-                    on_release: 
-                        root.manager.transition.direction = "up"
-                        root.login()
-                MDRaisedButton:
-                    text: "Submit"
-                    pos_hint: {"center_x": .7,"center_y": .4}   
-                    on_release:
-                        root.manager.transition.direction = "left"
-                        root.submit()
-
-<LoginWindow>:
-    name: "login"
-    email: email
-    password: password
-
-    MDFloatLayout:
-        MDCard:
-            pos_hint:{"center_x": .5, "center_y": .5}
-            MDFloatLayout:
-                Image:
-                    source: "driptip_logo.jpg"
-                    size_hint_y: .25
-                    pos_hint:{"center_x": .5, "center_y": .8}
-                MDTextField:
-                    id: email
-                    hint_text: "Email"
-                    size_hint_x: .8
-                    pos_hint: {"center_x": .5, "center_y": .6}
-                MDTextField:
-                    id: password
-                    hint_text: "Password"
-                    password: True
-                    size_hint_x: .8
-                    pos_hint: {"center_x": .5, "center_y": .5}
-                MDRaisedButton:
-                    text: "Login"
-                    size_hint_x: .39
-                    pos_hint: {"center_x": .3,"center_y": .3}   
-                    on_release: 
-                        root.manager.transition.direction = "up"
-                        root.loginBtn()
-                MDRaisedButton:
-                    text: "Sign Up!"
-                    size_hint_x: .39
-                    pos_hint: {"center_x": .7,"center_y": .3}   
-                    on_release:
-                        root.manager.transition.direction = "right"
-                        root.createBtn()
+            if self.login_state == 'out': print("User logged out")
 
 
-<MainWindow>:
+    GothLabel:
+        MDLabel:
+            text: "Goth"
+            bold: True
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
 
-    BoxLayout:
-        orientation: "vertical"
-        MDToolbar:
-            title: "DripTip"
-            right_action_items: [["account", lambda x: app.callback1()]]
-            elevation: 10
-        MDBottomNavigation: 
-            MDBottomNavigationItem:
-                name: "home"
-                text: "home"
-                icon: "home"
-                HomeExplorer:
+        MDIconButton:
+            icon: "arrow-right"
+            pos_hint: {"center_x": 0.98, "center_y": 0.5}
+            on_press: root.gothSection()
+        
 
-            MDBottomNavigationItem:
-                name: "advisors"
-                text: "advisors"
-                icon: "account-tie"
-                Carousel: 
-                    direction: "right"
-                    PhotoTile:
-                        source: "assets/images/goth/goth2.jpeg"
-                    PhotoTile:
-                        source: "assets/images/goth/goth2.jpeg"
-            MDBottomNavigationItem:
-                name: "messages"
-                text: "messages"
-                icon: "android-messages" 
+    AthleticLabel:
+        MDLabel:
+            text: "Athletic"
+            bold: True
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+        MDIconButton:
+            icon: "arrow-right"
+            pos_hint: {"center_x": 0.98, "center_y": 0.5}
+            on_press: root.athleticSection()
+
+    ProfessionalLabel:
+        MDLabel:
+            text: "Professional"
+            bold: True
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+        MDIconButton:
+            icon: "arrow-right"
+            pos_hint: {"center_x": 0.98, "center_y": 0.5}
+            on_press: root.proSection()
+
+    CasualLabel:
+        MDLabel:
+            text: "Casual"
+            bold: True
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+        MDIconButton:
+            icon: "arrow-right"
+            pos_hint: {"center_x": 0.98, "center_y": 0.5}
+            on_press: root.casSection()
+
+    PhotoTile:
+        size_hint_y: None
+        keep_ratio: True
+        allow_stretch: False
+        height: "150dp"
+
+    HomeExplorer:
+        ScrollView:
+            MDGridLayout:
+                cols: 1  
+                adaptive_height: True
+                spacing: "20dp"
+                padding: "15dp"
+                
+                GothLabel:
+
+                PhotoTile:
+                    source: "assets/images/goth/goth2.jpeg"
+                MDSeparator:
+
+                AthleticLabel:
+
+                PhotoTile:
+                    source: "assets/images/goth/goth3.jpeg"
+
+                MDSeparator:
+
+                ProfessionalLabel:
+                
+                PhotoTile:
+                    source: "assets/images/goth/goth4.jpeg"
+
+                MDSeparator:
+
+                CasualLabel:
+
+                PhotoTile:
+                    source: "assets/images/goth/goth1.jpeg"
+
+    CreateAccountWindow:
+        name: "create"
+
+        namee: namee
+        email: email
+        password: passw
+        userType: userType
+
+        MDFloatLayout:
+            MDCard:
+                pos_hint:{"center_x": .5, "center_y": .5}
                 MDFloatLayout:
                     MDTextField:
-                        hint_text: "Messaging service is Down until FireBase Authentication"
-                        size_hint_x: 1
-                        pos_hint: {"center_x": .5, "center_y": .5}
+                        id: namee
+                        hint_text: "Account Name: "
+                        size_hint_x: .8
+                        pos_hint: {"center_x": .5, "center_y": .8}
                     MDTextField:
-                        id: message_sent
-                        hint_text: "Type message..."
-                        size_hint_x: 1
-                        pos_hint: {"center_x": .5, "center_y": .1}
+                        id: email
+                        hint_text: "Email"
+                        size_hint_x: .8
+                        pos_hint: {"center_x": .5, "center_y": .7}
+                    MDTextField:
+                        id: passw
+                        password: True
+                        hint_text: "Password"
+                        size_hint_x: .8
+                        pos_hint: {"center_x": .5, "center_y": .6}
+                    MDTextField:
+                        id: userType
+                        hint_text: "Advisor or Advise Seeker"
+                        size_hint_x: .8
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                    MDRaisedButton:
+                        text: "Log In"
+                        pos_hint: {"center_x": .3,"center_y": .4}   
+                        on_release: 
+                            root.manager.transition.direction = "up"
+                            root.login()
+                    MDRaisedButton:
+                        text: "Submit"
+                        pos_hint: {"center_x": .7,"center_y": .4}   
+                        on_release:
+                            root.manager.transition.direction = "left"
+                            root.submit()
 
-                
+    LoginWindow:
+        name: "login"
+        email: email
+        password: password
+
+        MDFloatLayout:
+            MDCard:
+                pos_hint:{"center_x": .5, "center_y": .5}
+                MDFloatLayout:
+                    Image:
+                        source: "driptip_logo.jpg"
+                        size_hint_y: .25
+                        pos_hint:{"center_x": .5, "center_y": .8}
+                    MDTextField:
+                        id: email
+                        hint_text: "Email"
+                        size_hint_x: .8
+                        pos_hint: {"center_x": .5, "center_y": .6}
+                    MDTextField:
+                        id: password
+                        hint_text: "Password"
+                        password: True
+                        size_hint_x: .8
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                    MDRaisedButton:
+                        text: "Login"
+                        size_hint_x: .39
+                        pos_hint: {"center_x": .3,"center_y": .3}   
+                        on_release: 
+                            root.manager.transition.direction = "up"
+                            root.loginBtn()
+                    MDRaisedButton:
+                        text: "Sign Up!"
+                        size_hint_x: .39
+                        pos_hint: {"center_x": .7,"center_y": .3}   
+                        on_release:
+                            app.my_firebase.sign_up(email.text, password.text)
+                            root.manager.transition.direction = "right"
+                            root.createBtn()
+
+
+    MainWindow:
+
+        BoxLayout:
+            orientation: "vertical"
+            MDToolbar:
+                title: "DripTip"
+                right_action_items: [["account", lambda x: app.callback1()]]
+                elevation: 10
+            MDBottomNavigation: 
+                MDBottomNavigationItem:
+                    name: "home"
+                    text: "home"
+                    icon: "home"
+                    HomeExplorer:
+
+                MDBottomNavigationItem:
+                    name: "advisors"
+                    text: "advisors"
+                    icon: "account-tie"
+                    Carousel: 
+                        direction: "right"
+                        PhotoTile:
+                            source: "assets/images/goth/goth2.jpeg"
+                        PhotoTile:
+                            source: "assets/images/goth/goth2.jpeg"
+                MDBottomNavigationItem:
+                    name: "messages"
+                    text: "messages"
+                    icon: "android-messages" 
+                    MDFloatLayout:
+                        MDTextField:
+                            hint_text: "Messaging service is Down until FireBase Authentication"
+                            size_hint_x: 1
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                        MDTextField:
+                            id: message_sent
+                            hint_text: "Type message..."
+                            size_hint_x: 1
+                            pos_hint: {"center_x": .5, "center_y": .1}
+
                     
+                        
 
 
 
-   
-<Profile>:
-    name: "profile"
-    n: n
-    email: email
-    created:created
+    
+    Profile:
+        name: "profile"
+        n: n
+        email: email
+        created:created
 
-    MDFloatLayout:
-        MDLabel:
-            id: n
-            pos_hint:{"x": 0.1, "top":0.9}
-            size_hint:0.8, 0.2
-            text: "Account Name: " 
+        MDFloatLayout:
+            MDLabel:
+                id: n
+                pos_hint:{"x": 0.1, "top":0.9}
+                size_hint:0.8, 0.2
+                text: "Account Name: " 
 
-        MDLabel:
-            id: email
-            pos_hint:{"x": 0.1, "top":0.7}
-            size_hint:0.8, 0.2
-            text: "Email: "
+            MDLabel:
+                id: email
+                pos_hint:{"x": 0.1, "top":0.7}
+                size_hint:0.8, 0.2
+                text: "Email: "
 
-        Label:
-            id: created
-            pos_hint:{"x": 0.1, "top":0.5}
-            size_hint:0.8, 0.2
-            text: "Created: "
-        MDRaisedButton:
-            text: "Log Out"
-            pos_hint: {"center_x": .3,"center_y": .3}   
-            on_release: 
-                root.manager.transition.direction = "up"
-                app.root.current = "login"
-        MDRaisedButton:
-            text: "Home"
-            pos_hint: {"center_x": .7,"center_y": .3}   
-            on_release:
-                root.manager.transition.direction = "right"
-                app.root.current = "main"
+            Label:
+                id: created
+                pos_hint:{"x": 0.1, "top":0.5}
+                size_hint:0.8, 0.2
+                text: "Created: "
+            MDRaisedButton:
+                text: "Log Out"
+                pos_hint: {"center_x": .3,"center_y": .3}   
+                on_release: 
+                    root.manager.transition.direction = "up"
+                    app.root.current = "login"
+            MDRaisedButton:
+                text: "Home"
+                pos_hint: {"center_x": .7,"center_y": .3}   
+                on_release:
+                    root.manager.transition.direction = "right"
+                    app.root.current = "main"
 
-<advisor>:
-    name: "advisor_sends"
-    tip: tip
+    advisor:
+        name: "advisor_sends"
+        tip: tip
 
-    GridLayout:
-        cols: 1
-        size: root.width, root.height
-        # image of seeker that is getting advice 
-        Image:   
-            source: "Snapchat-440905881.jpg"
-            allow_stretch: True 
-        TextInput:
-            id: tip
         GridLayout:
             cols: 1
-            Button:
-                text: "Send"
-                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                on_press: root.send()
-                on_release:
-                    app.root.current = "main"
-                    root.manager.transition.direction = "down"
+            size: root.width, root.height
+            # image of seeker that is getting advice 
+            Image:   
+                source: "Snapchat-440905881.jpg"
+                allow_stretch: True 
+            TextInput:
+                id: tip
+            GridLayout:
+                cols: 1
+                Button:
+                    text: "Send"
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    on_press: root.send()
+                    on_release:
+                        app.root.current = "main"
+                        root.manager.transition.direction = "down"
 
-<seeker>:
-    name: "seeker_sees" 
+    seeker:
+        name: "seeker_sees" 
 
-    GridLayout:
-        cols: 1
-        size: root.width, root.height
-        # image of seeker that is getting advice 
-        Image:   
-            source: "Snapchat-440905881.jpg"
-            allow_stretch: True 
-        Label: 
-            text: "Advice"
         GridLayout:
-            cols: 2
-            Button:
-                text: "Decline"
-                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                on_release: 
-                    app.root.current = "report_advice"
-                    root.manager.transition.direction = "down" 
-            Button:
-                text: "Accept"
-                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            cols: 1
+            size: root.width, root.height
+            # image of seeker that is getting advice 
+            Image:   
+                source: "Snapchat-440905881.jpg"
+                allow_stretch: True 
+            Label: 
+                text: "Advice"
+            GridLayout:
+                cols: 2
+                Button:
+                    text: "Decline"
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    on_release: 
+                        app.root.current = "report_advice"
+                        root.manager.transition.direction = "down" 
+                Button:
+                    text: "Accept"
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
 
-<seeker_1>:
-    name: "report_advice"
+    seeker_1:
+        name: "report_advice"
 
-    GridLayout:
-        cols: 1 
-        Label: 
-            text: "Would you like to report the advice for Malicious intnet?" 
+        GridLayout:
+            cols: 1 
+            Label: 
+                text: "Would you like to report the advice for Malicious intnet?" 
+            
+            GridLayout:
+                cols: 2 
+                Button:
+                    text: "Yes"
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+                Button:
+                    text: "No"
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    on_release:
+                        app.root.current = "main"
+                        root.manager.transition.direction = "down"
+                        
+    Goth:
+        name: "gothSec"
         
-        GridLayout:
-            cols: 2 
-            Button:
-                text: "Yes"
+        BoxLayout:
+            orientation: "vertical"
+            MDToolbar:
+                title: "Goth"
+                elevation: 10
+            MDLabel:
+                text: "Data unavailable until FireBase Authentication"
                 pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-
-            Button:
-                text: "No"
-                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                on_release:
+            MDRaisedButton:
+                text: "Go Back"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+                on_press:
                     app.root.current = "main"
-                    root.manager.transition.direction = "down"
-                    
-<Goth>:
-    name: "gothSec"
-    
-    BoxLayout:
-        orientation: "vertical"
-        MDToolbar:
-            title: "Goth"
-            elevation: 10
-        MDLabel:
-            text: "Data unavailable until FireBase Authentication"
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-        MDRaisedButton:
-            text: "Go Back"
-            pos_hint: {'center_x': 0.5, 'center_y': 0.4}
-            on_press:
-                app.root.current = "main"
-                root.manager.transition.direction = "left"
+                    root.manager.transition.direction = "left"
 
-<Athletic>:
-    name: "athleticSec"
-    
-    BoxLayout:
-        orientation: "vertical"
-        MDToolbar:
-            title: "Athletic"
-            elevation: 10
-        MDLabel:
-            text: "Data unavailable until FireBase Authentication"
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-        MDRaisedButton:
-            text: "Go Back"
-            pos_hint: {'center_x': 0.5, 'center_y': 0.4}
-            on_press:
-                app.root.current = "main"
-                root.manager.transition.direction = "left"
+    Athletic:
+        name: "athleticSec"
+        
+        BoxLayout:
+            orientation: "vertical"
+            MDToolbar:
+                title: "Athletic"
+                elevation: 10
+            MDLabel:
+                text: "Data unavailable until FireBase Authentication"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            MDRaisedButton:
+                text: "Go Back"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+                on_press:
+                    app.root.current = "main"
+                    root.manager.transition.direction = "left"
 
-<Professional>:
-    name: "proSec"
-    
-    BoxLayout:
-        orientation: "vertical"
-        MDToolbar:
-            title: "Athletic"
-            elevation: 10
-        MDLabel:
-            text: "Data unavailable until FireBase Authentication"
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-        MDRaisedButton:
-            text: "Go Back"
-            pos_hint: {'center_x': 0.5, 'center_y': 0.4}
-            on_press:
-                app.root.current = "main"
-                root.manager.transition.direction = "left"
+    Professional:
+        name: "proSec"
+        
+        BoxLayout:
+            orientation: "vertical"
+            MDToolbar:
+                title: "Athletic"
+                elevation: 10
+            MDLabel:
+                text: "Data unavailable until FireBase Authentication"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            MDRaisedButton:
+                text: "Go Back"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+                on_press:
+                    app.root.current = "main"
+                    root.manager.transition.direction = "left"
 
-<Casual>:
-    name: "casSec"
-    
-    BoxLayout:
-        orientation: "vertical"
-        MDToolbar:
-            title: "Athletic"
-            elevation: 10
-        MDLabel:
-            text: "Data unavailable until FireBase Authentication"
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-        MDRaisedButton:
-            text: "Go Back"
-            pos_hint: {'center_x': 0.5, 'center_y': 0.4}
-            on_press:
-                app.root.current = "main"
-                root.manager.transition.direction = "left"
+    Casual:
+        name: "casSec"
+        
+        BoxLayout:
+            orientation: "vertical"
+            MDToolbar:
+                title: "Athletic"
+                elevation: 10
+            MDLabel:
+                text: "Data unavailable until FireBase Authentication"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            MDRaisedButton:
+                text: "Go Back"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+                on_press:
+                    app.root.current = "main"
+                    root.manager.transition.direction = "left"
 
 
 
