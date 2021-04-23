@@ -166,7 +166,14 @@ class seeker_1(Screen):  # ability to report advice after advice has been declin
 class WindowManager(ScreenManager):
     pass
 
+class WelcomeScreen(Screen):
+    pass
 
+class SignInScreen(Screen):
+    pass
+
+class SignUpScreen(Screen):
+    pass
 def messageSent():
     pop = Popup(title='Tip Sent!',
                 content=Label(text='Your Tip has been sent!'),
@@ -196,6 +203,9 @@ class MyMainApp(MDApp):
                    Athletic(name="athleticSec"),
                    Professional(name="proSec"),
                    Casual(name="casSec"),
+                   WelcomeScreen(name="welcome"),
+                   SignInScreen(name="signin"),
+                   SignUpScreen(name="signup")
                   ]
         for i in screens: 
             sm.add_widget(i)
