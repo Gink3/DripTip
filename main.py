@@ -13,8 +13,24 @@ from kivy.uix.floatlayout import FloatLayout
 from kivymd.uix.imagelist import SmartTileWithStar
 from kivy.uix.image import Image
 from kivy.core.window import Window
+from firebase import Firebase
 
 Window.size = (390,763)
+
+
+#set up firebase connection
+config = { 
+    "apiKey": "AIzaSyAdLveOQ86Z44LqHmTY-bQBQmMPQ1DW3HE",
+    "authDomain": "driptip-37b83.firebaseapp.com",
+    "databaseURL": "https://driptip-37b83-default-rtdb.firebaseio.com",
+    "projectId": "driptip-37b83",
+    "storageBucket": "driptip-37b83.appspot.com",
+}
+
+firebase = Firebase(config)
+
+#get a reference to the authentication service of firebase
+auth = firebase.auth()
 
 class HomeExplorer(Screen):
     pass
@@ -43,12 +59,14 @@ class CreateAccountWindow(Screen):
     def submit(self):
         if self.namee.text != "" and self.email.text != "" and self.email.text.count("@") == 1 and self.email.text.count(".") > 0:
             if self.password != "":
-
-                db.add_user(self.email.text, self.password.text, self.namee.text)
+                try:
+                    auth.create_user_with_email_and_password(self.email.text, self.password.text)
+                    db.add_user(self.email.text, self.password.text, self.namee.text)
+                    sm.current = "login"
+                except:
+                    weakPassword()
 
                 self.reset()
-
-                sm.current = "login"
             else:
                 invalidForm()
         else:
@@ -69,12 +87,13 @@ class LoginWindow(Screen):
     password = ObjectProperty(None)
 
     def loginBtn(self):
-        if db.validate(self.email.text, self.password.text):
+        try:
+            auth.sign_in_with_email_and_password(self.email.text, self.password.text)
             Profile.current = self.email.text
 
             self.reset()
             sm.current = "main"
-        else:
+        except:
             invalidLogin()
 
     def createBtn(self):
@@ -128,6 +147,12 @@ def invalidForm():
 
     pop.open()
 
+def weakPassword():
+    pop = Popup(title='weak password',
+                  content=Label(text='Weak Password. Please enter another password'),
+                  size_hint=(None, None), size=(400, 400))
+
+    pop.open()
 
 class seeker_1(Screen):  # ability to report advice after advice has been declined 
     pass 
